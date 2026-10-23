@@ -1,0 +1,11 @@
+{
+  "name": "dpp-remix-lab",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DPP Remix and Foundry classroom lab contracts",
+  "scripts": {
+    "build": "forge build",
+    "clean": "forge clean"
+  }
+}
+

@@ -1,0 +1,11 @@
+# Foundry / build artifacts
+out/
+cache/
+lib/
+# node
+node_modules/
+# local env / secrets
+.env
+.env.*
+*.log
+.DS_Store
