@@ -93,6 +93,14 @@
 
 ---
 
+
+### 실행 화면
+![saveProfile 입력](images/lab1-save.png)
+*saveProfile 입력*
+
+![ProfileSaved event에 원본 노출](images/lab1-event.png)
+*ProfileSaved event에 원본 노출*
+
 ## Lab 2 — CommitmentClaimVerifier: 원본 대신 commitment만 남기기
 
 **목표:** 원본 claim을 올리지 않고 **commitment(봉인값)** 만 등록한 뒤, 나중에 값을 공개해 **일치성**을 검증합니다. claimValue나 salt가 틀리면 검증이 실패하는 것을 봅니다.
@@ -139,6 +147,17 @@ salt       = hashText("class-salt-team-1") 결과
 - 단, commitment는 **"값을 공개한 뒤 일치성 검증"** 이지, **원본 없이 조건만 증명하는 ZKP는 아닙니다.** 값을 여는 순간 verifier는 claimValue를 알게 됩니다. 원본 없이 조건만 증명하려면 **ZKP**(Lab 4 맥락)를 고려합니다.
 
 ---
+
+
+### 실행 화면
+![hashText + makeCommitment](images/lab2-commit.png)
+*hashText + makeCommitment*
+
+![verifyClaim = true](images/lab2-ok.png)
+*verifyClaim = true*
+
+![claimValue 변경 → false](images/lab2-fail.png)
+*claimValue 변경 → false*
 
 ## Lab 3 — IssuerNullifierClassDemo: 발급자 승인 + 바인딩 + 만료 + 일회성 + 맥락
 
@@ -231,6 +250,44 @@ nullifierHash = 0x11111111111111111111111111111111111111111111111111111111111111
 - ZKP를 써도 **public signal에 생년월일·고유 ID 같은 값이 들어가면 설계가 실패**합니다. 무엇을 public signal로 둘지가 핵심입니다.
 
 ---
+
+
+### 실행 화면
+![submitProof 성공 → ProofAccepted](images/lab4-ok.png)
+*submitProof 성공 → ProofAccepted*
+
+![빈 proof → invalid proof](images/lab4-fail.png)
+*빈 proof → invalid proof*
+
+
+## Remix 기본 사용법 (최소한 알면 좋은 정도)
+
+처음 Remix를 쓰는 분을 위한 화면 안내입니다. (실제 화면 캡처 + 번호 설명)
+
+### 1. 화면 구성
+![화면 구성](images/b1-layout.png)
+왼쪽 아이콘 막대(Files·Solidity Compiler·Deploy & Run) · 가운데 에디터 · 하단 터미널(트랜잭션·event·오류).
+
+### 2. 파일·워크스페이스 만들기
+![파일 만들기](images/b2-file.png)
+Files 패널에서 새 `.sol` 파일을 만들고 코드를 붙여넣습니다. 실습용 새 워크스페이스로 분리할 수 있습니다.
+
+### 3. 컴파일러 버전·오류 읽기
+![컴파일](images/b3-compile.png)
+COMPILER에서 **0.8.26** 선택 후 Compile. 성공하면 초록 체크, 실패하면 빨간 오류와 줄 번호가 표시됩니다.
+
+### 4. Deploy & Run
+![Deploy](images/b4-deploy.png)
+ENVIRONMENT는 **Remix VM**(연습용), ACCOUNT로 계정을 바꾸고, 생성자 인자를 넣어 Deploy.
+
+### 5. 함수 호출·입력 형식·로그 읽기
+![함수 호출](images/b5-call.png)
+주황 버튼=트랜잭션(로그 남김), 파랑 버튼=즉시 반환(view/pure). 입력 형식: bytes32=`0x`+64자리 · 주소=`0x`+40자리 · 배열=`[1]` · 문자열=`"..."`. 하단 터미널에서 트랜잭션을 펼쳐 event/ revert 사유를 읽습니다.
+
+### 자주 하는 실수
+- bytes32 칸에 글자를 그대로 입력 → `hashText(...)` 결과(0x…)를 붙여넣기.
+- 컴파일러 버전 불일치 → 0.8.26로 맞추기.
+- event가 안 보임 → 하단 터미널에서 트랜잭션 줄을 눌러 펼치기(파랑 버튼은 로그가 아니라 반환값).
 
 ## 자주 막히는 곳 (FAQ)
 
